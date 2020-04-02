@@ -1,17 +1,24 @@
+const {GENESIS_DATA} = require('./config');
+
 class Block{
+	
 	constructor( {timestamp, lastHash, data, hash} ){
 		this.timestamp = timestamp;
 		this.lastHash = lastHash;
 		this.data = data;
 		this.hash = hash;
 	}
+	static genesis() {
+		//console.log('genesisdata', GENESIS_DATA);
+		return new this(GENESIS_DATA);
+	}
+	static mineBlock({lastBlock, data}){
+		return new this({
+			timestamp : Date.now(),
+			lastHash : lastBlock.hash,
+			data : data
+		});
+	}
 }
 
-const block1 = new Block({
-	lastHash:'foo-lastHash', 
-	data:'foo-data', 
-	hash:'foo-hash',
-	timestamp:'123'
-	});
-
-console.log('block1', block1);
+module.exports = Block;
