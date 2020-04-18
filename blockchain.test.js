@@ -75,20 +75,22 @@ describe('BLockchain', () => {
 		describe('when the new chain is not longer', ()=>{
 			it('does not replace the chain', ()=> {
 				
-				newChain.chain[0] = {new: 'chain'};
+				newChain.chain[0] = {data : 'chain'};
 													  
 				blockchain.replaceChain(newChain.chain);
 				expect(blockchain.chain).toEqual(originalChain);
 			});
 		});
 		
-		describe('when the new chain is  longer', ()=>{
+		describe('when the new chain is longer', ()=>{
+			
 			beforeEach(() =>{
-				newChain.addBlock('A1');
-				newChain.addBlock('B1');
-				newChain.addBlock('c1');
+				newChain.addBlock({ data:'A1' });
+				newChain.addBlock({ data:'B1' });
+				newChain.addBlock({ data:'C1' });
 				
 			});
+			
 			describe('when the chain is invalid', ()=> {
 				it('does not replace the chain', ()=> {
 					newChain.chain[2].hash = 'invalid-hash';
